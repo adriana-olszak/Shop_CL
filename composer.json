@@ -1,0 +1,13 @@
+{
+    "name": "vendor/shop-c-l",
+    "description": "Description of project Shop_CL.",
+    "authors": [
+        {
+            "name": "adriana",
+            "email": "your@email.here"
+        }
+    ],
+    "require": {
+        "phpunit/phpunit": "^5.6"
+    }
+}
