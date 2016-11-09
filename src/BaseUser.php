@@ -11,12 +11,13 @@ Class BaseUser extends Connect{
     
     public function __construct() {
       
-       $this->name = "MyDestructableClass";
+       $this->id = -1;
+       $this->hashedPassword="";
+       $this->email="";
+       $this->username="";
    }
    
-
-
-
+   
     public function getHashedPassword() {
         return $this->hashedPassword;
     }
@@ -28,11 +29,13 @@ Class BaseUser extends Connect{
     public function getUsername() {
         return $this->username;
     }
-
-    public function setHashedPassword($conn ,$hashedPassword) {
-        $this->hashedPassword = $hashedPassword;
-        return true;
+    
+    public function setHashedPassword($hashedPassword) {
+        $newHashedPassword = password_hash($hashedPassword, PASSWORD_BCRYPT);
+        $this->hashedPassword = $newHashedPassword;
+        return $this->hashedPassword;
     }
+    
 
     public function setEmail($conn, $email) {
         $this->email = $email;
