@@ -7,6 +7,15 @@
  * 
  */
 
+/* DO NAPISANIA METODY (chyba):
+ * addTo ShoppingCart
+ * removeFromSC
+ * modify
+ * 
+ */
+    
+
+
 include_once 'Connection.php';
 
 class Item extends Connect{
@@ -17,6 +26,8 @@ class Item extends Connect{
     private $description;
     private $quantity;
     private $category;
+    private $imgPath;
+
 
     public function __construct() {
         $this->id = -1;
@@ -24,7 +35,8 @@ class Item extends Connect{
         $this->price = "";
         $this->description = "";
         $this->quantity = "";
-        $this->category = "";
+        $this->categoryId = "";
+        $this->imgPath ="";
     }
 
     // -------------------- //
@@ -52,7 +64,11 @@ class Item extends Connect{
     }
 
     function getCategory() {
-        return $this->category;
+        return $this->categoryId;
+    }
+    
+    function getImgPath() {
+        return $this->imgPath;
     }
 
     // -------------------- //
@@ -76,7 +92,11 @@ class Item extends Connect{
     }
 
     function setCategory($category) {
-        $this->category = $category;
+        $this->categoryId = $category;
+    }
+
+     function setImgPath($imgPath) {
+        $this->imgPath = $imgPath;
     }
 
     // -------------------- //
@@ -112,13 +132,12 @@ class Item extends Connect{
     //         LOAD         //
     // -------------------- //
     
-    
+    // uzupełnić poprawnie row!!!!
     public function loadAllItems(mysqli $conn) {
        $sql = "SELECT * FROM Items";
        
        $result = $conn->query($sql);
        
-       // uzupełnić poprawnie row!!!!
        if ($result == true && $result->num_rows != 0) {
             foreach ($result as $row) {
                 $loadedItem = new Item();
@@ -127,7 +146,7 @@ class Item extends Connect{
                 $loadedItem->price = $row['price'];
                 $loadedItem->description = $row['description'];
                 $loadedItem->quantity = $row['quantity'];
-                $loadedItem->category = $row['category_id'];
+                $loadedItem->categoryId = $row['category_id'];
 
                 $ret[] = $loadedItem;
             }              
@@ -135,7 +154,26 @@ class Item extends Connect{
         return $ret;
     }
     
+    // DO UZUPEŁNIENIA!
+    public function loadAllImgByItemId(mysqli $conn, $id) {
+        $sql = "SELECT `__SCIEZKA__` FROM `__ZDJECIA__` WHERE item_id=$id";
+        
+        $result = $conn->query($sql);
+        // uzupełnić poprawnie row!!!!
+       if ($result == true && $result->num_rows != 0) {
+            foreach ($result as $row) {
+                $loadedImg = new Item();
+                $loadedImg->id = $row['id'];
+                $loadedImg->imgPath = $row['__ścieżka__'];
+
+                $ret[] = $loadedImg;
+            }              
+        }
+        return $ret;
+    }
+
     
+
     // -------------------- //
     //         DELETE       //
     // -------------------- //
