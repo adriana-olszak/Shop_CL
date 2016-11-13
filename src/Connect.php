@@ -23,6 +23,6 @@ if ($conn->connect_error) {
     
     
      
-    }
+    }    
        /// brakuje close connect !!! pytenie czy konieczny?     
 }

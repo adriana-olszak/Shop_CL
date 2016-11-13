@@ -1,5 +1,8 @@
-<?php// w trakcie
-include_once 'Connect';
+<?php
+
+
+// w trakcie
+include_once 'Connect.php';
 
 Class BaseUser extends Connect{
      
@@ -11,12 +14,15 @@ Class BaseUser extends Connect{
     
     public function __construct() {
       
-       $this->id = -1;
+       $this->userId = -1;
        $this->hashedPassword="";
        $this->email="";
        $this->username="";
    }
    
+       public function getUserId() {
+        return $this->userId;
+    }
    
     public function getHashedPassword() {
         return $this->hashedPassword;
@@ -26,7 +32,7 @@ Class BaseUser extends Connect{
         return $this->email;
     }
 
-    public function getUsername() {
+    public function getUserName() {
         return $this->username;
     }
     
@@ -37,26 +43,45 @@ Class BaseUser extends Connect{
     }
     
 
-    public function setEmail($conn, $email) {
+    public function setEmail($email) {
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)){
         $this->email = $email;
-        return true;
+        return $email;
+        }else {
+            return false;
+        }
     }
 
-    public function setUsername($conn, $username) {
+    public function setUserName($username) {
         $this->username = $username;
-        return true;
+        return $username;
     }
 
     public function login($conn, $email, $password){
-        
+        session_start();
+         if(isset($_SESSION['hash'])){
+                $conn=getDbConnection();             
+                $sql= 'SELECT hashedPassword FROM `users` WHERE `email`="'.////////////sprawdz sQ
+                        ($_SESSION['userInputMail']).'"';
+                $result=$conn->query($sql);
+                $row=$result->fetch_assoc();
+                     if($row['hashedPassword']==$_SESSION['hash']){
+                         include_once '../src/main.php';
+                         include_once '../src/menu_engine.php';
+                     }else {
+                         session_destroy();
+                        include_once '../src/logIn.php';
+                     }
+                
+            
+            } else {
+                
+            include_once '../src/logIn.php';
+            }
     }
     
     
 }
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
