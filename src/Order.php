@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Order class allows to save, edit and load item from database
+ * Order class allows to save, edit and load orders from database
  *
  * @author adriana Olszak e-mail: adriana.olszak@gmail.com
  * 
