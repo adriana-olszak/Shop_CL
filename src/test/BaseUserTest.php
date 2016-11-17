@@ -60,8 +60,14 @@ class BaseUserTest extends PHPUnit_Framework_TestCase {
     public function testCheckLogin(){
         
         session_destroy();
-        $user = new BaseUser();
         
+        $user = new BaseUser();
+        $user->checkLogin('aaa@aaa.pl', "nieprawidłowehasło ");
+        $this->assertTrue(!isset($_SESSION), "Checklogin nie ustawia sesji");
+        $this->assertTrue(!isset($_SESSION['hash']), "Checklogin nie zwraca false przy braku session hash");
+        $this->assertTrue(!isset($_SESSION['id']), "Checklogin nie zwraca false przy braku session id");
+        $this->assertTrue(!isset($_SESSION['type']), "Checklogin nie zwraca false przy braku session type");
+        $this->assertSame($user->checkLogin('aaa@aaa.pl', "nieprawidłowehasło "),'niepraidłowy login lub hasło' );
         
        // jak sesja nie wystartowana wystartować sesję 
        // sprawdzić czy w sesji ustawiona zmienna hash , id type

@@ -6,3 +6,18 @@
  * and open the template in the editor.
  */
 
+//zmiany możliwe u użytkownika 
+//
+//hasło 
+//nazwa 
+//mail 
+//miasto 
+//kod pocztowy 
+//ulica 
+//numer domu 
+//numer mieszkania 
+//
+//to będzie jeden formulaż zmienione zostaną tylko dane wypełnione 
+//
+//
+//link który wygeneruje info o złożonych już zamówieniach zamówieniach 

@@ -3,7 +3,7 @@ abstract class Connect{// gotowe
     
     protected $conn;
     
-    public  function connect(){
+    public  function connectToDB(){
         $configDB = array(
     'servername' => "localhost",
     'username' => "root",
